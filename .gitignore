@@ -1,0 +1,64 @@
+# Local credentials and environment configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+profiles.yml
+profiles.yaml
+.dbt/
+superset_config.py
+*.pem
+*.key
+
+# Python environments, caches and build artifacts
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+.ipynb_checkpoints/
+
+# dbt and SQLMesh generated state
+target/
+dbt_packages/
+logs/
+.cache/
+.sqlmesh/
+
+# Local databases and Superset runtime files
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.duckdb
+*.duckdb.wal
+.superset/
+superset_home/
+
+# Local source data and generated datasets; preserve directory placeholders
+/data/raw/*
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Editor, operating system and temporary files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp
+*.swp
+*~
