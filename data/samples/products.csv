@@ -1,0 +1,9 @@
+product_id,product_name,category,unit_price,is_active
+1,Laptop Lenovo,Electronics,1450.00,true
+2,Wireless Mouse,Accessories,35.00,true
+3,Mechanical Keyboard,Accessories,120.00,true
+4,Monitor Samsung,Electronics,480.00,true
+5,USB-C Cable,Accessories,15.00,true
+6,Office Chair,Furniture,250.00,true
+7,Headphones JBL,Audio,85.00,true
+8,Webcam Logitech,Accessories,110.00,true
