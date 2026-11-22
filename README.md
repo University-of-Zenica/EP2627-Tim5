@@ -13,8 +13,8 @@ trendova te analizu po proizvodu, kupcu i vremenskom periodu, ovisno o izvoru po
 
 Inicijalna struktura repozitorija (`chore: initialize project repository`).
 Dodani su dokumentacija, pravila ignoriranja lokalnih datoteka i direktoriji
-za budući razvoj. SQL modeli, podaci, izvršno okruženje i dashboardi još nisu
-implementirani; projekt se u ovoj fazi ne pokreće kao aplikacija.
+za budući razvoj. Dodano je i lokalno Docker Compose okruženje za PostgreSQL;
+SQL modeli, podaci i dashboardi još nisu implementirani.
 
 ## Predložene tehnologije
 
@@ -22,7 +22,7 @@ implementirani; projekt se u ovoj fazi ne pokreće kao aplikacija.
 | --- | --- | --- |
 | Transformacije i provjere podataka | dbt Core ili SQLMesh | Tim bira jedan alat |
 | Vizualizacija i izvještaji | Apache Superset | Predložen opisom zadatka |
-| Izvještajna baza | SQL baza kompatibilna s odabranim alatima | Odabir u sljedećoj fazi |
+| Izvještajna baza | PostgreSQL 16 | Konfigurirano Docker Compose okruženje |
 | Verzije koda i suradnja | Git i GitHub | Repozitorij je postavljen |
 
 Aktualne napomene za 2026. godinu i službeni izvori nalaze se u
@@ -61,6 +61,8 @@ EP2627-Tim5/
 ├── docs/
 │   ├── kpis.md              # Početne definicije pokazatelja
 │   └── technology.md        # Odabir alata i upravljanje verzijama
+├── .env.example             # Primjer konfiguracije bez stvarnih lozinki
+├── docker-compose.yml       # Lokalni PostgreSQL servis
 ├── models/
 │   ├── staging/
 │   ├── intermediate/
@@ -77,11 +79,12 @@ EP2627-Tim5/
 ```
 
 Datoteke `.gitkeep` čuvaju prazne direktorije u Gitu. Struktura je početna
-organizacija koda; konfiguracija odabranog alata dodat će se u sljedećoj fazi.
+organizacija koda; konfiguracija transformacijskog alata dodat će se u sljedećoj
+fazi nakon izbora dbt Core-a ili SQLMesh-a.
 
 ## Preuzimanje projekta
 
-Za ovu fazu potreban je samo Git. U terminalu pokrenuti:
+Potreban je Git i Docker Desktop/Docker Engine. U terminalu pokrenuti:
 
 ```sh
 git clone https://github.com/University-of-Zenica/EP2627-Tim5.git
@@ -89,8 +92,35 @@ cd EP2627-Tim5
 git status
 ```
 
-Upute za instalaciju alata i pokretanje modela dodat će se zajedno s izvršnom
-konfiguracijom, nakon izbora baze i alata za transformacije.
+## Lokalna PostgreSQL baza
+
+Kopirati primjer konfiguracije i po potrebi izmijeniti lozinku:
+
+```sh
+cp .env.example .env
+docker compose up -d postgres
+docker compose ps
+```
+
+Compose koristi PostgreSQL 16.6 na baznom sučelju i čuva podatke u imenovanom
+Docker volumenu `ep2627_sales_postgres_data`. Zdravstveni status provjerava se
+automatski naredbom `docker compose ps`.
+
+Primjer konekcije iz `.env.example`:
+
+```text
+postgresql://sales_app:change-me@localhost:5432/sales_reporting
+```
+
+Za pregled logova i završetak rada koristiti:
+
+```sh
+docker compose logs -f postgres
+docker compose down
+```
+
+Naredba `docker compose down -v` briše podatke iz baze i mora se koristiti
+samo kada se sigurno želi ponovo izgraditi lokalna baza od nule.
 
 ## Timski rad
 
